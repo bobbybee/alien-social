@@ -5,6 +5,8 @@
 // it unpacks these properties into itself
 // cool, huh?
 
+var RoomManager = require("./RoomManager");
+
 function Player(ws, db) {
   this.ws = ws;
 
@@ -20,6 +22,7 @@ function Player(ws, db) {
 
   this.x = 0;
   this.y = 0;
+  this.room = RoomManager.getRoom(0);
 }
 
 Player.prototype.send = function(msg) {
