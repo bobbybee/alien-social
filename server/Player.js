@@ -23,10 +23,16 @@ function Player(ws, db) {
   this.x = 0;
   this.y = 0;
   this.room = RoomManager.getRoom(0);
+
+  RoomManager.joinRoom(this.room, this);
 }
 
 Player.prototype.send = function(msg) {
   this.ws.send(JSON.stringify(msg));
+}
+
+Player.prototype.disconnected = function() {
+  RoomManager.leaveRoom(this);
 }
 
 // messages of type player are routed here

@@ -14,8 +14,10 @@ module.exports.getRoom = function(id) {
 
 module.exports.joinRoom = function(room, player) {
   room.users.push(player);
-  
-  return room.users.length - 1;
+}
+
+module.exports.leaveRoom = function(player) {
+  player.room.users.splice(player.room.users.indexOf(player), 1);
 }
 
 module.exports.sendRoomMessage = function(room, msg) {
