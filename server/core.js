@@ -1,3 +1,5 @@
+var handleMessage = require("./handleMessage"); // off load the heavy lifting to other modules
+
 var ws = require('ws').Server;
 var wss = new ws({
   port: 666
@@ -9,7 +11,8 @@ wss.on('connection', function(ws) {
   ws.on('message', function(msg) {
     try {
       msg = JSON.parse(msg);
-      console.log(msg);
+
+      handleMessage(ws, msg);
     } catch(e) {
       console.log(e);
     }
