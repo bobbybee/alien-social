@@ -22,8 +22,9 @@ function Player(ws, db) {
 
   this.x = 0;
   this.y = 0;
-  this.room = RoomManager.getRoom(0);
 
+  this.room = RoomManager.getRoom(0);
+  this.send(RoomManager.describe(this.room));
   RoomManager.joinRoom(this.room, this);
 }
 
@@ -47,6 +48,17 @@ Player.prototype.handle = function(msg) {
 
     console.log(this.username + " moved to ("+this.x+","+this.y+") pointing "+this.direction);
   }
+}
+
+// description methods are for transmitting publically serializable properties
+
+Player.prototype.describe = function() {
+  return {
+    username: this.username,
+    x: this.x,
+    y: this.y,
+    direction: this.direction
+  };
 }
 
 module.exports = Player;

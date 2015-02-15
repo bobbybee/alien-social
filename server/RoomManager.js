@@ -31,3 +31,16 @@ module.exports.sendRoomMessage = function(room, msg) {
     console.error(e);
   }
 }
+
+module.exports.describe = function(room) {
+  var message = {
+    type: 'room',
+    users: []
+  };
+
+  for(var i = 0; i < room.users.length; ++i) {
+    message.users.push(room.users[i].describe());
+  }
+
+  return message;
+}
