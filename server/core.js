@@ -1,4 +1,7 @@
 var handleMessage = require("./handleMessage"); // off load the heavy lifting to other modules
+var RoomManager = require("./RoomManager");
+
+RoomManager.addRoom("Outer Space");
 
 var ws = require('ws').Server;
 var wss = new ws({
