@@ -30,6 +30,9 @@ Player.prototype.handle = function(msg) {
     // TODO: broadcasting new position
     this.x = msg.x || 0;
     this.y = msg.y || 0;
+    this.direction = msg.direction || 0;
+
+    console.log(this.username + " moved to ("+this.x+","+this.y") pointing "+this.direction);
   }
 }
 
