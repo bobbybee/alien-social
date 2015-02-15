@@ -26,6 +26,12 @@ module.exports = function(ws, msg) {
       console.log("Already logged in");
       // TODO: kick client
     }
+  } else if(msg.type == "player") {
+    if(ws.player) {
+      ws.player.handle(msg);
+    } else {
+      console.log("Not logged in");
+    }
   } else {
     console.warn("Unknown message type " + msg.type);
   }
