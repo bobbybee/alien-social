@@ -95,7 +95,7 @@
 
   ext.nextMessage = function() {
     ext.readyForNext = true;
-    ext.queuedMessage.splice(0, 1);
+    if(ext.queuedMessages.length) ext.queuedMessages.splice(0, 1);
   }
 
   // register the extension
