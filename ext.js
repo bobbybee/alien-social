@@ -21,7 +21,7 @@
       }
 
       ext.socket.onmessage = function(msg) {
-        msg = JSON.parse(msg);
+        msg = JSON.parse(msg.data);
         console.log(msg);
       }
 
