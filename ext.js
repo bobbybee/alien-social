@@ -1,6 +1,7 @@
 (function(ext) {
   ext.queuedMessages = [];
   ext.currentMessage = null;
+  ext.readyForNext = true;
 
   ext._shutdown = function() { // define boilerplate shutdown and status methods
 
@@ -52,12 +53,30 @@
 
   // message hat block is a confusing beast..
   ext.when_message = function() {
-    if(ext.queuedMessages.length) {
+    // there needs to be both a queued message and the ready for next flag
+    // to trigger the hat block
+
+    if(ext.queuedMessages.length && ext.readyForNext) {
       ext.currentMessage = ext.queuedMessages[0];
+      ext.readyForNext = false; // stop hat block until Scratch is ready for the next message
       return true;
     }
 
     return false;
+  }
+
+  // once in the message hat, there is a queued message
+  // getMessageKey lets us access its JSON values
+
+  ext.getMessageKey = function(key) {
+    return ext.currentMessage[key];
+  }
+
+  // Scratch has a funny implementation of hat blocks
+  // for my sanity, we'll require the end of the hat to have a nextMessage call to continue processing messages
+
+  ext.nextMessage = function() {
+    ext.readyForNext = true;
   }
 
   // register the extension
@@ -76,6 +95,8 @@
       ["-"],
 
       ["h", "when message received", "when_message"],
+      ["r", "message key %s", "getMessageKey", "type"],
+      [" ", "done processing message", "nextMessage"],
     ]
   }, ext);
 })({});
