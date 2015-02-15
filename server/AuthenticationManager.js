@@ -5,11 +5,11 @@
 
 var Player = require("./Player");
 
-module.exports = function(username, password) {
+module.exports = function(ws, username, password) {
   // TODO: hook up DB
   // for now, we just authenticate all requests blindly
 
-  return new Player({
+  return new Player(ws, {
     username: username
   });
 }

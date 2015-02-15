@@ -5,14 +5,22 @@ module.exports = function(ws, msg) {
 
   if(msg.type == "auth") {
     if(!ws.player) {
-      ws.player = AuthenticationManager(msg.username, msg.password);
+      ws.player = AuthenticationManager(ws, msg.username, msg.password);
 
       if(ws.player) {
-        console.log("Login success");
-        // TODO: alert client of success
+        console.log(msg.username + " successfully logged in");
+
+        ws.send(JSON.stringify({
+          type: "auth",
+          status: 0
+        }));
       } else {
-        console.log("Login fail");
-        // TODO: alert client of failure
+        console.log(msg.username + " failed to login");
+
+        ws.send(JSON.stringify({
+          type: "auth",
+          status: -1
+        }));
       }
     } else {
       console.log("Already logged in");
