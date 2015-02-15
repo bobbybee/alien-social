@@ -13,7 +13,27 @@
   // connect to Alien Social server at a given host and port
 
   ext.connect = function(host, port) {
-    alert(host+":"+port); // TODO: connect to server
+    if(!ext.connected) {
+      ext.socket = new WebSocket("ws://"+host+":"+port);
+
+      ext.socket.onopen = function() {
+        ext.connected = true;
+      }
+
+      ext.socket.onmessage = function(msg) {
+        msg = JSON.parse(msg);
+        console.log(msg);
+      }
+
+      ext.socket.onclose = function() {
+        ext.connected = false;
+      }
+    }
+
+  }
+
+  ext.isConnected = function() {
+    return !!ext.connected; // double inversion causes an undefined value to return false
   }
 
   // register the extension
@@ -23,6 +43,7 @@
   {
     blocks: [
       [" ", "connect to server %s : %n", "connect", "127.0.0.1", 666],
+      ["b", "connected?", "isConnected"],
     ]
   }, ext);
 })({});
