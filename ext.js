@@ -82,6 +82,14 @@
     return ext.currentMessage[key];
   }
 
+  ext.arrayLengthOfKey = function(key) {
+    return ext.currentMessage[key].length;
+  }
+
+  ext.keyOfArrayOfMessage = function(key, index, messageKey) {
+    return ext.currentMessage[messageKey][index][key];
+  }
+
   // Scratch has a funny implementation of hat blocks
   // for my sanity, we'll require the end of the hat to have a nextMessage call to continue processing messages
 
@@ -108,6 +116,8 @@
 
       ["h", "when message received", "when_message"],
       ["r", "message key %s", "getMessageKey", "type"],
+      ["r", "array length of message key %s", "arrayLengthOfKey", "users"],
+      ["r", "key %s of array element %n of message key %s", "keyOfArrayOfMessage", "username", 0, "users"],
       [" ", "done processing message", "nextMessage"],
     ]
   }, ext);
