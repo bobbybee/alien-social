@@ -22,6 +22,7 @@ function Player(ws, db) {
 
   this.x = 0;
   this.y = 0;
+  this.direction = 0;
 
   this.room = RoomManager.getRoom(0);
   this.send(RoomManager.describe(this.room));
