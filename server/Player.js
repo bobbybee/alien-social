@@ -8,7 +8,11 @@
 function Player(ws, db) {
   this.ws = ws;
 
-  for(var key in Object.keys(db)) {
+  var keys = Object.keys(db);
+
+  for(var i = 0; i < keys.length; ++i) {
+    var key = keys[i];
+
     this[key] = db[key];
   }
 
@@ -32,7 +36,7 @@ Player.prototype.handle = function(msg) {
     this.y = msg.y || 0;
     this.direction = msg.direction || 0;
 
-    console.log(this.username + " moved to ("+this.x+","+this.y") pointing "+this.direction);
+    console.log(this.username + " moved to ("+this.x+","+this.y+") pointing "+this.direction);
   }
 }
 

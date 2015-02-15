@@ -51,6 +51,16 @@
     }))
   }
 
+  ext.moveToXYD = function(x, y, d) {
+    ext.socket.send(JSON.stringify({
+      type: "player",
+      subtype: "move",
+      x: x,
+      y: y,
+      direction: d
+    }));
+  }
+
   // message hat block is a confusing beast..
   ext.when_message = function() {
     // there needs to be both a queued message and the ready for next flag
@@ -91,6 +101,7 @@
       ["-"],
 
       [" ", "authenticate using username %s and password %s", "auth", "foo", "bar"],
+      [" ", "move to X: %n Y: %n Direction: %n", "moveToXYD", 50, 50, 90],
 
       ["-"],
 
