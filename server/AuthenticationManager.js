@@ -8,8 +8,10 @@ var Player = require("./Player");
 module.exports = function(ws, username, password) {
   // TODO: hook up DB
   // for now, we just authenticate all requests blindly
+  // random ID until we have a DB.. cross your fingers we won't have a collision haha
 
   return new Player(ws, {
-    username: username
+    username: username,
+    id: (Math.floor(Math.random() * 100000000))
   });
 }

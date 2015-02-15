@@ -25,7 +25,7 @@ module.exports.sendRoomMessage = function(room, msg) {
     msg = JSON.stringify(msg);
 
     for(var i = 0; i < room.users.length; ++i) {
-      room.users[i].send(msg);
+      room.users[i].ws.send(msg);
     }
   } catch(e) {
     console.error(e);

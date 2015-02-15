@@ -46,6 +46,15 @@ Player.prototype.handle = function(msg) {
     this.y = msg.y || 0;
     this.direction = msg.direction || 0;
 
+    RoomManager.sendRoomMessage(this.room, {
+      type: "player",
+      subtype: "move",
+      id: this.id,
+      x: this.x,
+      y: this.y,
+      direction: this.direction
+    });
+
     console.log(this.username + " moved to ("+this.x+","+this.y+") pointing "+this.direction);
   }
 }
@@ -55,6 +64,7 @@ Player.prototype.handle = function(msg) {
 Player.prototype.describe = function() {
   return {
     username: this.username,
+    id: this.id,
     x: this.x,
     y: this.y,
     direction: this.direction
