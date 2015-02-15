@@ -36,6 +36,17 @@
     return !!ext.connected; // double inversion causes an undefined value to return false
   }
 
+  // message senders blindly send messages
+  // validate beforehand, please :)
+
+  ext.auth = function(username, password) {
+    ext.socket.send(JSON.stringify({
+      type: "auth",
+      username: username,
+      password: password
+    }))
+  }
+
   // register the extension
   // descriptor is embedded within the function call
 
@@ -44,6 +55,10 @@
     blocks: [
       [" ", "connect to server %s : %n", "connect", "127.0.0.1", 666],
       ["b", "connected?", "isConnected"],
+
+      ["-"],
+
+      [" ", "authenticate using username %s and password %s", "auth", "foo", "bar"],
     ]
   }, ext);
 })({});
