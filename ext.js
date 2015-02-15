@@ -1,4 +1,7 @@
 (function(ext) {
+  ext.queuedMessages = [];
+  ext.currentMessage = null;
+
   ext._shutdown = function() { // define boilerplate shutdown and status methods
 
   };
@@ -22,7 +25,7 @@
 
       ext.socket.onmessage = function(msg) {
         msg = JSON.parse(msg.data);
-        console.log(msg);
+        ext.queuedMessages.push(msg);
       }
 
       ext.socket.onclose = function() {
@@ -47,6 +50,16 @@
     }))
   }
 
+  // message hat block is a confusing beast..
+  ext.when_message = function() {
+    if(ext.queuedMessages.length) {
+      ext.currentMessage = ext.queuedMessages[0];
+      return true;
+    }
+
+    return false;
+  }
+
   // register the extension
   // descriptor is embedded within the function call
 
@@ -59,6 +72,10 @@
       ["-"],
 
       [" ", "authenticate using username %s and password %s", "auth", "foo", "bar"],
+
+      ["-"],
+
+      ["h", "when message received", "when_message"],
     ]
   }, ext);
 })({});
