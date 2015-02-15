@@ -20,5 +20,9 @@ wss.on('connection', function(ws) {
 
   ws.on('close', function() {
     console.log("Bye!");
+
+    if(ws.player) {
+      ws.player.disconnected();
+    }
   })
 });
