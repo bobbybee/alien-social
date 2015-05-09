@@ -13,6 +13,13 @@ module.exports.getRoom = function(id) {
 }
 
 module.exports.joinRoom = function(room, player) {
+  module.exports.sendRoomMessage(room, {
+      type: "room",
+      users: [
+        player.describe()
+      ]
+  });
+
   room.users.push(player);
 }
 

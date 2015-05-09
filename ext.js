@@ -67,8 +67,8 @@
     // to trigger the hat block
 
     if(ext.queuedMessages.length && ext.readyForNext) {
-      ext.currentMessage = ext.queuedMessages[0];
       ext.readyForNext = false; // stop hat block until Scratch is ready for the next message
+      ext.currentMessage = ext.queuedMessages[0];
       return true;
     }
 
@@ -94,8 +94,8 @@
   // for my sanity, we'll require the end of the hat to have a nextMessage call to continue processing messages
 
   ext.nextMessage = function() {
+    if(ext.queuedMessages.length > 0) ext.queuedMessages.splice(0, 1);
     ext.readyForNext = true;
-    if(ext.queuedMessages.length) ext.queuedMessages.splice(0, 1);
   }
 
   // register the extension
